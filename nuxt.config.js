@@ -21,18 +21,25 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: {
+    color: '#FF5722',
+    height: '4px'
+  },
 
   /*
   ** Global CSS
   */
   css: [
+    '~/scss/main.scss',
+    '~/scss/sspai.scss'
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '@/plugins/axios',
+    '@/plugins/theme'
   ],
 
   /*
@@ -47,6 +54,8 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    credentials: true,
+    baseURL: process.env.NODE_ENV === 'production' ? 'https://luolinfeng.com/' : 'http://localhost:3302/'
   },
 
   /*

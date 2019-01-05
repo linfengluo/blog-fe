@@ -1,24 +1,13 @@
 <template>
-  <div :class="['app', themeClass]">
-    <PageHeader />
-    <PageNav />
-    <div class="app__inner">
+  <div :class="['single', themeClass]">
+    <div class="single">
       <nuxt />
     </div>
-    <PageFooter />
   </div>
 </template>
 
 <script>
-  import PageHeader from '../components/commons/header.vue'
-  import PageNav from '../components/commons/nav.vue'
-  import PageFooter from '../components/commons/footer.vue'
   export default {
-    components: {
-      PageHeader,
-      PageNav,
-      PageFooter
-    },
     mounted(){
       this.initFontSize()
       window.onresize = () => {
@@ -40,19 +29,13 @@
 <style lang="scss" rel="stylesheet/scss">
 @import "../scss/var";
 @import "../scss/mixin/theme";
-.app{
+.single{
   width: 100%;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  font-size: pxToRem($fontSizeBase);
-
-  &__inner{
-    margin: 0 auto;
-    max-width: $pageWidth;
-
-    @include themify($themes) {
-      color:  themed('fontColor');
-    }
-  }
+  height: 100%;
+  background-image: url('../static/texture.png');
+  @include themify($themes) {
+     background-color: themed('bgColor');
+     color:  themed('fontColor');
+   }
 }
 </style>
