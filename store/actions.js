@@ -12,12 +12,15 @@ const actions = {
         .then(res => {
           resolve(res.data)
         }).catch(err => {
-        reject(err)
-      });
+          reject(err)
+        });
     })
   },
   
   getArticle({}, id){
+    if (!id) {
+      return
+    }
     return new Promise((resolve, reject) => {
       this.$axios.get(`${apiConfig.article}/${id}`)
         .then(res => {

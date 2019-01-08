@@ -1,4 +1,4 @@
-$blue                       : rgb(46, 169, 223);
+$blue                       : #00a3fe;
 $lightBlue                  : rgb(88, 178, 220);
 $white                      : #fff;
 $yellow                     : #FFF10C;
@@ -10,7 +10,7 @@ $lightGray                  : lighten($gray, 50%);
 
 $pageWidth                  : 960px;
 $fontSizeBase               : 28px;
-$fontSize-large             : ceil(($fontSizeBase * 1.25)); // ~18px
+$fontSizeLarge             : ceil(($fontSizeBase * 1.25)); // ~18px
 $fontSizeSmall              : ceil(($fontSizeBase * 0.85)); // ~12px
 
 $fontSizeH1                 : floor(($fontSizeBase * 2.6)); // ~36px
@@ -26,7 +26,7 @@ $space                      : 12px;
 $middleSpace                : $space * 2;
 $largeSpace                 : $space * 4;
 
-$radius                     : 6px;
+$radius                     : 12px;
 $middleRadius               : $space * 2;
 $largeRadius                : $space * 4;
 
@@ -37,12 +37,17 @@ $footerHeight               : 200px;
 
 $themes: (
   default: (
-    bgColor                 : $blue,
+    indexBg                 : $blue,
+    bgColor                 : $lightGray,
+    innerBg                 : $white,
     fontColor               : $gray,
     prominentColor          : $blue,
     tipsColor               : lighten($gray, 30%),
     menuHover               : $yellow,
     hoverColor              : $yellow,
+
+    toTopColor              : $gray,
+    toTopHoverColor         : $blue,
 
     tagColor                : rgb(88, 178, 220),
     borderColor             : $borderColor,
@@ -52,10 +57,16 @@ $themes: (
 
     //导航栏颜色
     navBorder               : $borderColor,
+    navBg                   : $white,
     navColor                : $gray,
     navHoverBg              : $blue,
     navHoverColor           : $white,
 
+    //文章列表
+    iconColor               : $lightGray,
+    iconHoverColor          : $blue,
+
+    //按钮
     buttonBg                : $white,
     buttonColor             : $gray,
     buttonHoverBg           : $blue,
@@ -64,6 +75,7 @@ $themes: (
 
     footerBg                : $darkGray,
     footerColor             : $lightGray,
-
+    dictBg                  : $white,
+    dictColor               : $gray
   ),
 );

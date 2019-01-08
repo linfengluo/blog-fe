@@ -1,6 +1,7 @@
-$font-size: 14px;
+@import "var";
+@import "./fun/px2rem";
 .myMarkdown {
-  font-size: $font-size;
+  font-size: pxToRem($fontSizeBase);
   color: #333;
   font-family: Helvetica, Arial, "PingFang SC", "Microsoft YaHei", "WenQuanYi Micro Hei", "tohoma,sans-serif";
   margin: 0;

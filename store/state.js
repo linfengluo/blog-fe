@@ -3,5 +3,10 @@
  */
 export default () => ({
   isOpenMenu: false,
-  theme: 'default'
+  theme: 'default',
+  pageConfig: {
+    scrollTop: 0,
+    width: 0,
+    height: 0
+  }
 })

@@ -6,16 +6,25 @@
     <h3 class="article--title">
       <a :href="link" :title="article.title">{{ article.title }}</a>
     </h3>
-    <div class="article__info">
-      <span class="article__info--classify">分类：<span>{{ article.classify.label }}</span></span>
-      <span class="article__info--tags">
-        标签：<span v-for="(tag, index) in article.tabs" :key="index">{{ tag }}</span>
-      </span>
-      <span class="article__info--date">更新：<span>{{ formatDate(article.updatedAt, 'YYYY.MM.DD') }}</span></span>
-    </div>
     <div class="myMarkdown" v-html="article.desc"></div>
-    <div class="article__footer">
-      <MyButton label="阅读全文" :route="link"/>
+    <div class="article__info">
+      <div class="article__info--left">
+        <span class="article__info--item">
+          <i class="icon iconfont icon-fenlei"></i>
+          <a :href="`/article?classify=${article.classify._id}`">{{ article.classify.label }}</a>
+
+        </span>
+        <span class="article__info--item">
+          <i class="icon iconfont icon-06tags"></i>
+          <a v-for="(tag, index) in article.tabs"
+             :key="index"
+             :href="`/article?tag=${tag}`">#{{ tag }}
+          </a>
+        </span>
+      </div>
+      <div class="article__info--right">
+        <i class="icon iconfont icon-date"></i>{{ formatDate(article.updatedAt, 'YYYY.MM.DD') }}
+      </div>
     </div>
   </div>
 </template>
@@ -42,7 +51,7 @@
     },
     computed: {
       link(){
-        return `/article?id=${this.article._id}`
+        return `/article/${this.article._id}`
       }
     }
   }
@@ -53,16 +62,26 @@
 @import "../../scss/fun/px2rem";
 @import "../../scss/var";
 .article{
-  padding: pxToRem($middleSpace);
-  margin-bottom: pxToRem($largeSpace);
+  padding: pxToRem($largeSpace);
+  margin-bottom: pxToRem($middleSpace);
   background-color: #ffffff;
-  box-shadow: 0 4px 10px rgba(0,0,0,.1);
-  border-radius: $radius;
+  box-shadow: 0 pxToRem(4) pxToRem(10) rgba(0,0,0,.1);
+  border-bottom-left-radius: pxToRem($radius);
+  border-bottom-right-radius: pxToRem($radius);
+  transition: all .2s;
 
+  @include themify($themes) {
+    border-bottom: pxToRem($space) solid themed('borderColor');
+  }
+
+  &:hover{
+    @include themify($themes) {
+      border-color: themed('linkHoverColor');
+    }
+  }
 
   &--title{
     display: block;
-    text-align: center;
 
     a{
       transition: all .2s;
@@ -80,30 +99,35 @@
   }
 
   &__info{
-    margin: $space / 2 0;
-    text-align: center;
+    padding-top: pxToRem($middleSpace) ;
+    display: flex;
+    justify-content: space-between;
+    font-size: pxToRem($fontSizeSmall);
+
     @include themify($themes) {
       color:  themed('tipsColor');
+      border-top: 1px solid themed('borderColor');
     }
 
-    &--tags{
-      margin: 0 $space;
+    .icon{
+      margin-right: pxToRem($space);
+      font-size: pxToRem($fontSizeSmall);
+    }
 
-      span{
-        display: inline-block;
+    a {
+      @include themify($themes) {
+        color: themed('tipsColor');
+      }
 
+      &:hover{
         @include themify($themes) {
-          color:  themed('prominentColor');
+          color: themed('linkHoverColor');
         }
       }
     }
 
-    &--date, &--classify{
-      span{
-        @include themify($themes) {
-          color:  themed('prominentColor');
-        }
-      }
+    &--item{
+      margin-right: pxToRem($middleSpace);
     }
   }
 

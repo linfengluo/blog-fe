@@ -1,0 +1,11 @@
+/**
+ * Created by linfengluo@gmail.com on 2019/1/7.
+ */
+
+const CHANGE_SCROLLER_TOP = 'CHANGE_SCROLLER_TOP'
+const CHANGE_PAGE_CONFIG = 'CHANGE_PAGE_CONFIG'
+
+export {
+  CHANGE_SCROLLER_TOP,
+  CHANGE_PAGE_CONFIG
+}

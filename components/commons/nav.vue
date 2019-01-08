@@ -11,7 +11,7 @@
           }]"
           @click.stop="handleClick(nav)"
       >
-        {{ nav.label }}
+        <i :class="['icon iconfont', nav.icon]"></i><span>{{ nav.label }}</span>
       </li>
     </ul>
     <div ></div>
@@ -27,19 +27,28 @@
       return {
         navList: [
           {
-            label: 'Home',
+            label: '首页',
+            icon:'icon-home',
             routeName: 'home'
           },
           {
-            label: 'Article',
+            label: '归档',
+            icon:'icon-guidang1',
             routeName: 'article'
           },
           {
-            label: 'Classify',
+            label: '分类',
+            icon:'icon-fenlei',
             routeName: 'classify'
           },
           {
-            label: 'About',
+            label: '关于',
+            icon:'icon-svgabout',
+            routeName: 'about'
+          },
+          {
+            label: '搜索',
+            icon:'icon-search',
             routeName: 'about'
           }
         ]
@@ -70,9 +79,11 @@
 .nav{
   @include themify($themes) {
     color:  themed('navColor');
+    background-color:  themed('navBg');
   }
   &__list{
     margin: 0 auto;
+    padding: 0;
     display: flex;
     justify-content: center;
     border-bottom: 1px solid;
@@ -85,7 +96,7 @@
     &--item{
       padding: pxToRem(36);
       cursor: pointer;
-      transition: all .5s;
+      transition: all .2s;
 
       &.active{
         @include themify($themes) {
@@ -98,7 +109,14 @@
         @include themify($themes) {
           color:  themed('navHoverColor');
           background-color:  themed('navHoverBg');
-          transform: scale(1.2);
+          transform: scale(1.1);
+        }
+      }
+
+      span{
+        margin-left: pxToRem($space);
+        @media screen and (max-width: 640px){
+          display: none;
         }
       }
     }

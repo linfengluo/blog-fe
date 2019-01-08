@@ -6,6 +6,7 @@ const formatRes = require('../units/formatRes')
 const Article = require('../model/article')
 const {pageQuery} = require('../units/pageQuery')
 const markData = require('../units/marked')
+
 const articleController = {
   getList(req, res, next){
     const {page, pageSize, classify, searchKey, isHome} = req.query
@@ -32,6 +33,7 @@ const articleController = {
         }
       ]
     }
+    
     pageQuery(page, pageSize, Article, {
       path: 'classify',
       select: '_id, label'
@@ -55,9 +57,11 @@ const articleController = {
       .exec(function (err, doc) {
         if (err) {
           res.json(formatRes('serverError'))
+        } else {
+          doc.content = markData(doc.content)
+          res.json(formatRes('isOk', doc))
         }
-        doc.content = markData(doc.content)
-        res.json(formatRes('isOk', doc))
+        
       });
   },
   
@@ -67,7 +71,6 @@ const articleController = {
       _id: id
     }, function (err, doc) {
       if (err) {
-        console.log(err)
         res.json(formatRes('serverError'))
       }
       res.json(formatRes('isOk', doc))
