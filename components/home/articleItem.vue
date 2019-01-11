@@ -7,10 +7,13 @@
       <a :href="link" :title="article.title">{{ article.title }}</a>
     </h3>
     <div class="myMarkdown" v-html="article.desc"></div>
+    <div class="article__readMore">
+      <a :href="link" title="查看全文" class="article__readMore--link">Read More</a>
+    </div>
     <div class="article__info">
       <div class="article__info--left">
         <span class="article__info--item">
-          <i class="icon iconfont icon-fenlei"></i>
+          <i class="icon iconfont icon-classify"></i>
           <a :href="`/article?classify=${article.classify._id}`">{{ article.classify.label }}</a>
 
         </span>
@@ -71,12 +74,12 @@
   transition: all .2s;
 
   @include themify($themes) {
-    border-bottom: pxToRem($space) solid themed('borderColor');
+    border-bottom: pxToRem($space) solid themed('articleBorder');
   }
 
   &:hover{
     @include themify($themes) {
-      border-color: themed('linkHoverColor');
+      border-color: themed('articleHoverBorder');
     }
   }
 
@@ -86,6 +89,23 @@
     a{
       transition: all .2s;
 
+      @include themify($themes) {
+        color:  themed('fontColor');
+      }
+
+      &:hover{
+        @include themify($themes) {
+          color:  themed('linkHoverColor');
+        }
+      }
+    }
+  }
+
+  &__readMore{
+    &--link{
+      display: block;
+      padding: pxToRem($space) 0;
+      width: pxToRem(200px);
       @include themify($themes) {
         color:  themed('fontColor');
       }
@@ -110,7 +130,7 @@
     }
 
     .icon{
-      margin-right: pxToRem($space);
+      margin-right: pxToRem($space / 2);
       font-size: pxToRem($fontSizeSmall);
     }
 

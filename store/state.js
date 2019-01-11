@@ -4,6 +4,11 @@
 export default () => ({
   isOpenMenu: false,
   theme: 'default',
+  isShowSearch: false,
+  modalConfig: {
+    zIndex: 5000,
+    total: 0
+  },
   pageConfig: {
     scrollTop: 0,
     width: 0,

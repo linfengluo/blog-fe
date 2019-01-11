@@ -7,6 +7,7 @@
       <ToTop />
     </div>
     <PageFooter />
+    <PageSearch />
   </div>
 </template>
 
@@ -15,13 +16,15 @@
   import PageNav from '../components/commons/nav.vue'
   import PageFooter from '../components/commons/footer.vue'
   import ToTop from '../components/commons/toTop.vue'
+  import PageSearch from '../components/commons/search/search.vue'
   import { CHANGE_SCROLLER_TOP, CHANGE_PAGE_CONFIG } from '../units/mutationsType'
   export default {
     components: {
       PageHeader,
       PageNav,
       PageFooter,
-      ToTop
+      ToTop,
+      PageSearch
     },
     data(){
       return {
@@ -76,7 +79,11 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   font-size: pxToRem($fontSizeBase);
-  background: #f5f5f5;
+  background-image: url('../static/texture.png');
+
+  @include themify($themes) {
+    background-color: themed('bgColor');
+  }
 
   &__inner{
     margin: 0 auto;

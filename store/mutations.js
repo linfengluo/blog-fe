@@ -11,5 +11,13 @@ export default {
   [Types.CHANGE_PAGE_CONFIG](state, config) {
     const pageConfig = Object.assign(state.pageConfig, config)
     state.pageConfig = pageConfig
+  },
+  
+  [Types.UPDATE_MODAL_CONFIG](state, config) {
+    const modalConfig = Object.assign(state.modalConfig, config)
+    state.modalConfig = modalConfig
+  },
+  [Types.CHANGE_SEARCH_STATE](state, isShow = false){
+    state.isShowSearch = isShow
   }
 }

@@ -19,6 +19,7 @@
 </template>
 
 <script>
+  import { CHANGE_SEARCH_STATE } from '../../units/mutationsType'
   export default {
     name: 'blogNav',
     components: {},
@@ -29,7 +30,7 @@
           {
             label: '首页',
             icon:'icon-home',
-            routeName: 'home'
+            routeName: 'index'
           },
           {
             label: '归档',
@@ -38,7 +39,7 @@
           },
           {
             label: '分类',
-            icon:'icon-fenlei',
+            icon:'icon-classify',
             routeName: 'classify'
           },
           {
@@ -49,7 +50,7 @@
           {
             label: '搜索',
             icon:'icon-search',
-            routeName: 'about'
+            method: 'handleSearch'
           }
         ]
       }
@@ -64,9 +65,18 @@
     },
     methods: {
       handleClick(nav){
-        this.$router.push({
-          name: nav.routeName
-        })
+        console.log(nav)
+        if (nav.routeName) {
+          this.$router.push({
+            name: nav.routeName
+          })
+        } else {
+          nav.method && this[nav.method]()
+        }
+      },
+
+      handleSearch(){
+        this.$store.commit(CHANGE_SEARCH_STATE, true)
       }
     }
   }

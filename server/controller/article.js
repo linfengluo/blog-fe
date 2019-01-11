@@ -63,48 +63,6 @@ const articleController = {
         }
         
       });
-  },
-  
-  delete(req, res, next){
-    const {id} = req.body
-    Article.deleteOne({
-      _id: id
-    }, function (err, doc) {
-      if (err) {
-        res.json(formatRes('serverError'))
-      }
-      res.json(formatRes('isOk', doc))
-    });
-  },
-  
-  create(req, res, next){
-    const {title, classify, desc, content, tabs, isShow} = req.body
-    Article.create({
-      title, classify, desc, content, tabs, isShow
-    }, function (err, doc) {
-      if (err) {
-        console.log(err)
-        res.json(formatRes('serverError'))
-      }
-      
-      res.json(formatRes('created', doc, '新建成功'))
-    })
-  },
-  
-  update(req, res, next){
-    const {id, title, classify, desc, content, tabs, isShow} = req.body
-    Article.findOneAndUpdate({
-      _id: id
-    }, {
-      title, classify, desc, content, tabs, isShow
-    }, (err, doc) => {
-      
-      if (err) {
-        res.json(formatRes('serverError'))
-      }
-      
-      res.json(formatRes('update'))
-    })
   }
 }
 

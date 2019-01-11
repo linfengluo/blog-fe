@@ -3,17 +3,21 @@
 -->
 <template>
   <section class="articleList">
-    <ul class="articleList__container">
+    <ul class="articleList__container" >
       <ArticleItem v-for="article of articles"
                    :key="article._id"
                    :article="article"
       ></ArticleItem>
+      <NoneData v-if="articles.length <= 0"
+                tips="这个人太懒了，竟然没有发布相关的文章！"
+      ></NoneData>
     </ul>
   </section>
 </template>
 
 <script>
 import ArticleItem from '../../components/article/item.vue'
+import NoneData from '../../components/commons/noneData.vue'
 export default {
   async asyncData({store, query}) {
     let params = Object.assign({
@@ -36,16 +40,37 @@ export default {
     return {}
   },
   components: {
-    ArticleItem
+    ArticleItem,
+    NoneData
   },
   mixins: [],
   created(){
   },
   mounted(){
   },
-  watch: {},
-  computed: {},
-  methods: {}
+  watch: {
+    '$route'(){
+      this.resetData()
+    }
+  },
+  computed: {
+  },
+  methods: {
+    resetData(){
+      let params = Object.assign({
+        isHome: 1
+      }, this.$route.query)
+      this.$store.dispatch('getArticles', params)
+        .then(res => {
+          this.articles = res.results
+          this.pagination = {
+            current: Number(res.current) || 1,
+            pageSize: Number(res.pageSize) || 1,
+            total: Number(res.total) || 0
+          }
+        })
+    }
+  }
 }
 </script>
 
@@ -62,8 +87,13 @@ export default {
       background-color:  themed('innerBg');
     }
 
+    @media screen and (min-width: 640px) {
+      height: pxToRem(600);
+    }
+
     @media screen and (max-width: 640px) {
       padding: pxToRem($largeSpace) pxToRem($middleSpace) pxToRem($middleSpace);
+      height: pxToRem(200);
     }
   }
 }
