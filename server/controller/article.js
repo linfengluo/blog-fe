@@ -63,6 +63,30 @@ const articleController = {
         }
         
       });
+  },
+  
+  countClassify() {
+    return new Promise((resolve, reject) => {
+      Article.aggregate([
+        {$match: {}},
+        {$group: {
+          _id: "$classify",
+          count: {$sum: 1}
+        }
+        }
+      ]).exec(function(err,reslut){
+        if (err) {
+          reject(err)
+        } else {
+          let data = {}
+          reslut.map(item =>{
+            data[item._id] = item.count
+          })
+          resolve(data)
+        }
+      })
+    })
+    
   }
 }
 

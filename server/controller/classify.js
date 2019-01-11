@@ -3,66 +3,51 @@
  */
 const formatRes = require('../units/formatRes')
 const Classify = require('../model/classify')
+const Article = require('../model/article')
+const ArticleController = require('../controller/article')
 const {pageQuery} = require('../units/pageQuery')
+const async = require('async');
 
 const classifyController = {
   getList(req, res, next){
-    const {page, pageSize} = req.query
-    pageQuery(page, pageSize, Classify)
-      .then(result => {
-        res.json(formatRes('isOk',result))
-      })
-      .catch(err => {
+    async.parallel({
+      count: function (done) {  // 查询数量
+        ArticleController.countClassify()
+          .then(res => {
+            done(null, res);
+          })
+          .catch(err => {
+            done(err, null);
+          })
+      },
+      records: function (done) {   // 查询一页的记录
+        Classify
+          .find()
+          .select('_id label')
+          .exec(function (err, doc) {
+            if (err) {
+              done(err, null);
+            } else {
+              done(null, doc);
+            }
+          });
+      }
+    }, function (err, results) {
+      if (err) {
         res.json(formatRes('serverError', err))
-      })
-  },
-  
-  get(req, res, next){
-    const {id} = req.params
-    Classify.findById(id, 'label _id', function (err, doc) {
-      if (err) {
-        res.json(formatRes('serverError'))
+      } else {
+        const result = results.records.map((item, index) => {
+          return {
+            _id: item._id,
+            label: item.label,
+            count: results.count[item._id]
+          }
+        })
+        
+        res.json(formatRes('isOk', result))
       }
-      res.json(formatRes('isOk', doc))
     });
-  },
-  
-  delete(req, res, next){
-    const {id} = req.body
-    Classify.deleteOne({
-        _id: id
-      }, function (err, doc) {
-        if (err) {
-          res.json(formatRes('serverError'))
-        }
-        res.json(formatRes('isOk', '', '删除成功'))
-      });
-  },
-  
-  create(req, res, next){
-    const { label } = req.body
-    Classify.create({
-      label: label
-    }, function (err, doc) {
-      if (err) {
-        res.json(formatRes('serverError'))
-      }
     
-      res.json(formatRes('created', doc, '更新成功'))
-    })
-  },
-  
-  update(req, res, next){
-    const {label, id} = req.body
-    Classify.findByIdAndUpdate(id, {
-      label: label
-    }, (err, doc) => {
-      if (err) {
-        res.json(formatRes('serverError'))
-      }
-    
-      res.json(formatRes('update'))
-    })
   }
 }
 

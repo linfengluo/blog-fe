@@ -2,15 +2,14 @@
     Created by linfengluo@gmail.com on 2019/1/8.
 -->
 <template>
-  <li class="articleItem">
+  <li class="classifyItem">
     <a :href="link"
-       :title="article.title"
-       class="articleItem__link"
+       :title="classify.label"
+       class="classifyItem__link"
     >
-      <div>{{ article.title }} <span class="articleItem--desc">({{ article.classify.label }})</span></div>
-      <div>{{ formatDate(article.updatedAt) }}</div>
+      <div>{{ classify.label }}</div>
+      <div class="classifyItem--desc">文章总数：{{ classify.count }}</div>
     </a>
-
   </li>
 </template>
 
@@ -18,31 +17,17 @@
   import TimeMixins from '../../mixins/timeFormat'
   export default {
     props: {
-      article: {
+      classify: {
         props: Object,
         default(){
           return {}
         }
       }
     },
-    components: {},
     mixins: [TimeMixins],
-    data() {
-      return {}
-    },
     computed: {
       link(){
-        return `/article/${this.article._id}`
-      }
-    },
-    watch: {},
-    created(){
-    },
-    mounted(){
-    },
-    methods: {
-      handleClick(){
-
+        return `/article?classify=${this.classify._id}&page=1`
       }
     }
   }
@@ -52,7 +37,7 @@
   @import "../../scss/var";
   @import "../../scss/fun/px2rem";
   @import "../../scss/mixin/theme";
-.articleItem{
+.classifyItem{
   list-style: none;
   &__link{
     position: relative;

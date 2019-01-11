@@ -25,4 +25,8 @@ router.delete('/api/article', function (req, res, next) {
   Article.delete(req, res, next)
 })
 
+router.get('/api/articles/count', function (req, res, next) {
+  Article.countClassify(req, res, next)
+})
+
 module.exports = router
