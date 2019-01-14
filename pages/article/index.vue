@@ -33,27 +33,19 @@ export default {
       }
     }
   },
-  fetch () {
-  },
-  head: {},
-  data() {
-    return {}
+  head(){
+    return {
+      title: '归档 | 锋言疯语',
+    }
   },
   components: {
     ArticleItem,
     NoneData
   },
-  mixins: [],
-  created(){
-  },
-  mounted(){
-  },
   watch: {
     '$route'(){
       this.resetData()
     }
-  },
-  computed: {
   },
   methods: {
     resetData(){
@@ -88,12 +80,12 @@ export default {
     }
 
     @media screen and (min-width: 640px) {
-      height: pxToRem(600);
+      min-height: pxToRem(600);
     }
 
     @media screen and (max-width: 640px) {
       padding: pxToRem($largeSpace) pxToRem($middleSpace) pxToRem($middleSpace);
-      height: pxToRem(200);
+      min-height: pxToRem(200);
     }
   }
 }

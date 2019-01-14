@@ -1,7 +1,7 @@
 {
   "name": "blogfe",
   "version": "1.0.0",
-  "description": "My neat Nuxt.js project",
+  "description": "疯子的博客，",
   "author": "linfengluo@gmail.com",
   "private": true,
   "scripts": {

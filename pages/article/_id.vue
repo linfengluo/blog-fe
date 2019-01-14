@@ -16,7 +16,7 @@
         </span>
         <span class="article__info--date">更新：<span>{{ formatDate(article.updatedAt, 'YYYY.MM.DD') }}</span></span>
       </div>
-      <div class="myMarkdown" v-html="article.content" ref="articleContent"></div>
+      <div class="myMarkdown" v-html="markData(article.content)" ref="articleContent"></div>
     </div>
     <div :class="['article__comments', {
       left: hasDirectory
@@ -32,6 +32,7 @@
 
 <script>
   import DateMixin from '../../mixins/timeFormat'
+  import Marked from '../../mixins/marked'
   import Directory from '../../components/article/directory.vue'
   export default {
     async asyncData({store, params }) {
@@ -40,9 +41,14 @@
         article: data
       }
     },
-    fetch () {
+    head(){
+      return {
+        title: `${this.article.title} | 锋言疯语`,
+        meta: [
+          { hid: 'description', name: 'description', content: this.article.desc }
+        ]
+      }
     },
-    head: {},
     data() {
       return {
         directory: [],
@@ -53,15 +59,11 @@
     components: {
       Directory
     },
-    mixins: [DateMixin],
-    created(){
-    },
+    mixins: [DateMixin, Marked],
     mounted(){
       this.initComment()
       this.initDirectory()
     },
-    watch: {},
-    computed: {},
     methods: {
       handleTranstion(val = 200){
         this.hasDirectory = true

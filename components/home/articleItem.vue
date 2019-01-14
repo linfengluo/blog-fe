@@ -6,7 +6,7 @@
     <h3 class="article--title">
       <a :href="link" :title="article.title">{{ article.title }}</a>
     </h3>
-    <div class="myMarkdown" v-html="article.desc"></div>
+    <div class="myMarkdown" v-html="markData(article.desc)"></div>
     <div class="article__readMore">
       <a :href="link" title="查看全文" class="article__readMore--link">Read More</a>
     </div>
@@ -35,6 +35,7 @@
 <script>
   import DateMixin from '../../mixins/timeFormat'
   import MyButton from '../commons/button.vue'
+  import MarkedMixins from '../../mixins/marked'
   export default {
     name: 'ArticleItem',
     props: {
@@ -48,7 +49,7 @@
     components: {
       MyButton
     },
-    mixins: [DateMixin],
+    mixins: [DateMixin, MarkedMixins],
     data() {
       return {}
     },

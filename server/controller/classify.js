@@ -3,7 +3,6 @@
  */
 const formatRes = require('../units/formatRes')
 const Classify = require('../model/classify')
-const Article = require('../model/article')
 const ArticleController = require('../controller/article')
 const {pageQuery} = require('../units/pageQuery')
 const async = require('async');
@@ -47,7 +46,6 @@ const classifyController = {
         res.json(formatRes('isOk', result))
       }
     });
-    
   }
 }
 

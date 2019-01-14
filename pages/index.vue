@@ -25,13 +25,6 @@ export default {
   },
   components: {
     ArticleItem
-  },
-  data(){
-    return {}
-  },
-  mounted(){
-  },
-  methods: {
   }
 }
 </script>

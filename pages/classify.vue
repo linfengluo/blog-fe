@@ -21,9 +21,11 @@
         classifys: data
       }
     },
-    fetch () {
+    head(){
+      return {
+        title: '分类 | 锋言疯语',
+      }
     },
-    head: {},
     components: {
       ClassifyItem
     }
@@ -44,12 +46,12 @@
       }
 
       @media screen and (min-width: 640px) {
-        height: pxToRem(600);
+        min-height: pxToRem(600);
       }
 
       @media screen and (max-width: 640px) {
         padding: pxToRem($largeSpace) pxToRem($middleSpace) pxToRem($middleSpace);
-        height: pxToRem(200);
+        min-height: pxToRem(200);
       }
     }
   }

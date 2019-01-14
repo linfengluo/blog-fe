@@ -58,10 +58,8 @@ const articleController = {
         if (err) {
           res.json(formatRes('serverError'))
         } else {
-          doc.content = markData(doc.content)
           res.json(formatRes('isOk', doc))
         }
-        
       });
   },
   

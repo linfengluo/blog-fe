@@ -7,11 +7,12 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: '锋言疯语',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { name: 'viewport', content: 'user-scalable=no, width=device-width,initial-scale=1.0,viewport-fit=cover' },
+      { name: 'keywords', content: 'HTML, CSS, XML, XHTML, JavaScript, VUE, REACT, JS, 前端, FE, F2E, UX, EX, 用户体验, 交互设计' },
+      { hid: 'description', name: 'description', content: '一个技术渣渣的胡言乱语' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
