@@ -16,7 +16,6 @@
       <Pagination :current="pagination.current"
                   :pageSize="pagination.pageSize"
                   :total="pagination.total"
-                  @change="handlePageChange"
       ></Pagination>
     </div>
   </section>
@@ -26,7 +25,6 @@
 import ArticleItem from '../../components/article/item.vue'
 import NoneData from '../../components/commons/noneData.vue'
 import Pagination from '../../components/commons/pagination.vue'
-import PaginationMixins from '../../mixins/pagination'
 export default {
   async asyncData({store, query}) {
     let params = Object.assign({
@@ -52,7 +50,6 @@ export default {
     NoneData,
     Pagination
   },
-  mixins: [PaginationMixins],
   watch: {
     '$route'(){
       this.resetData()

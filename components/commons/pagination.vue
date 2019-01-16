@@ -2,46 +2,50 @@
     Created by linfengluo@gmail.com on 2019/1/16.
 -->
 <template>
-  <section class="myPagination">
-    <ul class="myPagination__list">
-      <li class="myPagination__list--item"
-          v-show="!isFirst"
-          @click="handlePanigation(1)"
-      >
+  <ul class="myPagination myPagination__list">
+    <li class="myPagination__list--item"
+        v-show="!isFirst"
+        key="pageFirst"
+    >
+      <nuxt-link :to="getLink(1)" class="myPagination__list--link">
         1
-      </li>
-      <li class="myPagination__list--item"
-          v-show="showPrevMore"
-          @click="handlePrev"
-      >
+      </nuxt-link>
+    </li>
+    <li class="myPagination__list--item"
+        v-show="showPrevMore"
+        key="more"
+    >
+      <nuxt-link :to="getLink(null, 'prev')" class="myPagination__list--link">
         <i class="icon iconfont icon-more"></i>
         <i class="icon iconfont icon-ai19-copy"></i>
-      </li>
-      <li :class="['myPagination__list--item', {
-            'active': item === current
-          }]"
-          v-for="(item, index) in panigationList"
-          :key="index"
-          @click="handlePanigation(item)"
-      >
-        {{ item }}
-      </li>
-      <li class="myPagination__list--item"
-          v-show="showNextMore"
-          @click="handleNext"
-      >
+      </nuxt-link>
+    </li>
+    <li :class="['myPagination__list--item', {
+          'active': page === current
+        }]"
+        v-for="page of panigationList"
+        :key="page"
+    >
+      <nuxt-link :to="getLink(page)" class="myPagination__list--link">{{ page }}</nuxt-link>
+    </li>
+    <li class="myPagination__list--item"
+        v-show="showNextMore"
+        key="nextMore"
+    >
+      <nuxt-link :to="getLink(null, 'next')" class="myPagination__list--link">
         <i class="icon iconfont icon-more"></i>
         <i class="icon iconfont icon-ai19"></i>
-      </li>
-      <li class="myPagination__list--item"
-          v-show="!isEnd"
-          @click="handlePanigation(totalPage)"
-      >
+      </nuxt-link>
+    </li>
+    <li class="myPagination__list--item"
+        v-show="!isEnd"
+        key="pageEnd"
+    >
+      <nuxt-link :to="getLink(totalPage)" class="myPagination__list--link">
         {{ totalPage }}
-      </li>
-
-    </ul>
-  </section>
+      </nuxt-link>
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -49,21 +53,16 @@
     props: {
       current: {
         type: Number,
-        default: 5
+        default: 1
       },
       pageSize: {
         type: Number,
-        default: 20
+        default: 10
       },
       total: {
         type: Number,
-        default: 240
+        default: 0
       }
-    },
-    components: {},
-    mixins: [],
-    data() {
-      return {}
     },
     computed: {
       totalPage(){
@@ -91,7 +90,6 @@
           return [this.totalPage - 4, this.totalPage - 3, this.totalPage - 2, this.totalPage - 1, this.totalPage]
         }
 
-
         if (this.isFirst) {
           return [1, 2, 3, 4, 5]
         }
@@ -105,22 +103,26 @@
         return this.panigationList[this.panigationList.length - 1] < this.totalPage - 1
       }
     },
-    watch: {},
-    created(){
-    },
-    mounted(){
-    },
     methods: {
-      handlePanigation(val){
-        this.$emit('change', val)
-      },
-      handlePrev(){
-        const page = this.current - 5 > 1 ? this.current - 5 : Math.ceil((this.current - 1) / 2)
-        this.$emit('change', page)
-      },
-      handleNext(){
-        const page = this.current + 5 < this.totalPage ? this.current + 5 : Math.ceil((this.totalPage - this.current ) / 2 + this.current)
-        this.$emit('change', page)
+      getLink(page, special = false){
+        let link = this.$route.path + '?'
+        let query = this.$route.query
+
+        if (special) {
+          page = special === 'next'
+            ? this.current + 5 < this.totalPage ? this.current + 5 : Math.ceil((this.totalPage - this.current ) / 2 + this.current)
+            : this.current - 5 > 1 ? this.current - 5 : Math.ceil((this.current - 1) / 2)
+        }
+        if (!query.hasOwnProperty('page')) {
+          query.page = page
+        }
+
+        for (let key in query) {
+          link = `${link}${key}=${key === 'page' ? page : query[key]}&`
+        }
+
+        link = link.substr(0, link.length - 1)
+        return link
       }
     }
   }
@@ -135,10 +137,24 @@
     display: flex;
     list-style: none;
     padding: 0;
+    font-size: pxToRem($fontSizeBase);
+
+    &--link{
+      padding: 0 pxToRem($space);
+      display: block;
+      height: pxToRem(40);
+      line-height: pxToRem(40);
+      @include themify($themes) {
+        color: themed('fontColor');
+      }
+    }
 
     &--item{
-      padding: 0 pxToRem($space);
+      box-sizing: border-box;
       margin: 0 pxToRem($space / 4);
+      width: pxToRem(60);
+
+      text-align: center;
       border-radius: pxToRem($radius / 2);
       transition: all .2s;
       cursor: pointer;
@@ -160,12 +176,23 @@
         .icon-ai19-copy, .icon-ai19{
           display: block;
         }
+
+        a{
+          @include themify($themes) {
+            color: themed('panigationHoverColor');
+          }
+        }
       }
 
       &.active{
         @include themify($themes) {
           background-color: themed('panigationActiveBg');
-          color: themed('panigationActiveColor');
+        }
+
+        a{
+          @include themify($themes) {
+            color: themed('panigationActiveColor');
+          }
         }
       }
     }

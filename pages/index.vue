@@ -7,7 +7,6 @@
       <Pagination :current="pagination.current"
                   :pageSize="pagination.pageSize"
                   :total="pagination.total"
-                  @change="handlePageChange"
       ></Pagination>
     </div>
   </section>
@@ -16,7 +15,6 @@
 <script>
 import ArticleItem from '../components/home/articleItem.vue'
 import Pagination from '../components/commons/pagination.vue'
-import PaginationMixins from '../mixins/pagination'
 export default {
   async asyncData({store, query}) {
     let params = Object.assign({
@@ -32,7 +30,6 @@ export default {
       }
     }
   },
-  mixins: [PaginationMixins],
   components: {
     ArticleItem,
     Pagination
