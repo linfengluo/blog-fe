@@ -8,7 +8,7 @@
        class="classifyItem__link"
     >
       <div>{{ classify.label }}</div>
-      <div class="classifyItem--desc">文章总数：{{ classify.count }}</div>
+      <div class="classifyItem--desc">文章总数：{{ classify.count || 0 }}</div>
     </a>
   </li>
 </template>

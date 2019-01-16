@@ -18,6 +18,7 @@
   import ToTop from '../components/commons/toTop.vue'
   import PageSearch from '../components/commons/search/search.vue'
   import { CHANGE_SCROLLER_TOP, CHANGE_PAGE_CONFIG } from '../units/mutationsType'
+  import {mapState} from 'vuex'
   export default {
     components: {
       PageHeader,
@@ -46,6 +47,14 @@
         this.scrollerTimer = setTimeout(() => {
           this.initScroll()
         }, 100)
+      }
+    },
+    computed: {
+      ...mapState({
+        theme: state => state.theme
+      }),
+      themeClass(){
+        return `theme-${this.theme}`
       }
     },
     methods: {
