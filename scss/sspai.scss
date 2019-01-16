@@ -62,11 +62,11 @@
   }
 
   img {
-    width: 100%;
     border-radius: 5px;
     display: block;
-    margin-bottom: 15px;
+    margin: 6px auto 15px;
     height: auto;
+    max-width: 100%;
   }
 
   dl, ol, ul {

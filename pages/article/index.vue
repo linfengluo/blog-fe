@@ -12,12 +12,21 @@
                 tips="这个人太懒了，竟然没有发布相关的文章！"
       ></NoneData>
     </ul>
+    <div class="pagination__wrapper">
+      <Pagination :current="pagination.current"
+                  :pageSize="pagination.pageSize"
+                  :total="pagination.total"
+                  @change="handlePageChange"
+      ></Pagination>
+    </div>
   </section>
 </template>
 
 <script>
 import ArticleItem from '../../components/article/item.vue'
 import NoneData from '../../components/commons/noneData.vue'
+import Pagination from '../../components/commons/pagination.vue'
+import PaginationMixins from '../../mixins/pagination'
 export default {
   async asyncData({store, query}) {
     let params = Object.assign({
@@ -40,8 +49,10 @@ export default {
   },
   components: {
     ArticleItem,
-    NoneData
+    NoneData,
+    Pagination
   },
+  mixins: [PaginationMixins],
   watch: {
     '$route'(){
       this.resetData()

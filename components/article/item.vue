@@ -8,7 +8,7 @@
        class="articleItem__link"
     >
       <div>{{ article.title }} <span class="articleItem--desc">({{ article.classify.label }})</span></div>
-      <div>{{ formatDate(article.updatedAt) }}</div>
+      <div class="articleItem--desc">{{ formatDate(article.updatedAt, 'YYYY年MM月DD日 HH:mm') }}</div>
     </a>
 
   </li>
@@ -98,7 +98,6 @@
 
   &--desc {
     margin-left: pxToRem($space);
-    font-size: pxToRem($fontSizeSmall);
     @include themify($themes) {
       color: themed('tipsColor');
     }

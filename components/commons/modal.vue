@@ -2,22 +2,32 @@
     Created by linfengluo@gmail.com on 2019/1/9.
 -->
 <template>
-  <transition name="slide-fade">
-    <div class="myModal"
-         v-show="isShow"
-         :style="{'z-index': zIndex}"
+
+  <div class="myModal"
+       v-show="isShow"
+       :style="{'z-index': zIndex}"
+  >
+    <transition
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
     >
       <div :class="['myModal__mask',{
              'mask': needMask
            }]"
+           v-show="showModal"
            @click.stop="handleClose"
       >
       </div>
-      <div class="myModal__inner">
-        <slot></slot>
+    </transition>
+    <transition
+      enter-active-class="animated fadeInUp"
+      leave-active-class="animated fadeOutDown"
+    >
+      <div class="myModal__inner" v-show="showModal">
+        <slot ></slot>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -31,11 +41,10 @@
         default: false
       }
     },
-    components: {},
-    mixins: [],
     data() {
       return {
-        zIndex: 5000
+        zIndex: 5000,
+        showModal: false
       }
     },
     created(){
@@ -52,12 +61,19 @@
         return this.modalIndex === this.zIndex + 1
       }
     },
-    watch: {},
+    watch: {
+      isShow(val){
+        this.showModal = val
+      }
+    },
     mounted(){
     },
     methods: {
       handleClose(){
-        this.$emit('close')
+        this.showModal = false
+        setTimeout(() => {
+          this.$emit('close')
+        }, 300)
       }
     }
   }

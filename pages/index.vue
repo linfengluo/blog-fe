@@ -3,11 +3,20 @@
     <ArticleItem v-for="item of articles"
                  :article="item"
                  :key="item._id" />
+    <div class="pagination__wrapper">
+      <Pagination :current="pagination.current"
+                  :pageSize="pagination.pageSize"
+                  :total="pagination.total"
+                  @change="handlePageChange"
+      ></Pagination>
+    </div>
   </section>
 </template>
 
 <script>
 import ArticleItem from '../components/home/articleItem.vue'
+import Pagination from '../components/commons/pagination.vue'
+import PaginationMixins from '../mixins/pagination'
 export default {
   async asyncData({store, query}) {
     let params = Object.assign({
@@ -23,8 +32,29 @@ export default {
       }
     }
   },
+  mixins: [PaginationMixins],
   components: {
-    ArticleItem
+    ArticleItem,
+    Pagination
+  },
+  watch: {
+    '$route'(){
+      this.initData()
+    }
+  },
+  methods: {
+    initData(){
+      const params = this.$route.query
+      this.$store.dispatch('getArticles', params)
+        .then(data => {
+          this.articles = data.results
+          this.pagination = {
+            current: Number(data.current) || 1,
+            pageSize: Number(data.pageSize) || 1,
+            total: Number(data.total) || 0
+          }
+        })
+    }
   }
 }
 </script>

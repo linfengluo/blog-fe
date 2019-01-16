@@ -163,6 +163,7 @@
       background-color: $blue;
       color: $white;
       text-align: center;
+      cursor: pointer;
 
       @media screen and (max-width: $pageSmallWidth){
         width: pxToRem(160px);
@@ -182,6 +183,7 @@
     top: 0;
     right: 5%;
     display: none;
+    cursor: pointer;
 
     @media screen and (max-width: $pageSmallWidth){
       display: block;
@@ -189,6 +191,7 @@
 
     .icon{
       font-size: pxToRem($fontSizeLarge * 1.5);
+      cursor: pointer;
       @include themify($themes) {
         color: themed('tipsColor');
       }

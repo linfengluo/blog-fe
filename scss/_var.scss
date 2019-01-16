@@ -43,6 +43,7 @@ $maskBg                     : rgba(0, 0, 0, 0.4);
 $modalWidth                 : 600px;
 $modalHeight                : 400px;
 
+
 $themes: (
   default: (
     indexBg                 : $blue,
@@ -88,6 +89,11 @@ $themes: (
     footerBg                : $darkGray,
     footerColor             : $lightGray,
     dictBg                  : $white,
-    dictColor               : $gray
+    dictColor               : $gray,
+
+    panigationHoverColor    : $white,
+    panigationHoverBg       : $lightBlue,
+    panigationActiveColor   : $white,
+    panigationActiveBg      : $blue
   ),
 );
