@@ -10,7 +10,9 @@ const markData = require('../units/marked')
 const articleController = {
   getList(req, res, next){
     const {page, pageSize, classify, searchKey, isHome} = req.query
-    let params = {}
+    let params = {
+      isShow: true
+    }
     if (classify) {
       params.classify = classify
     }
@@ -37,7 +39,7 @@ const articleController = {
     pageQuery(page, pageSize, Article, {
       path: 'classify',
       select: '_id, label'
-    }, params, {}, isHome == 1 ? '-content' : false)
+    }, params, {updatedAt: -1}, isHome == 1 ? '-content' : false)
       .then(result => {
         res.json(formatRes('isOk',result))
       })
