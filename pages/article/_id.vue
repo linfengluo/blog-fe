@@ -182,6 +182,7 @@
 
       span{
         display: inline-block;
+        margin-right: pxToRem($space);
 
         @include themify($themes) {
           color:  themed('prominentColor');
