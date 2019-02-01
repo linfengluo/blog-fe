@@ -21,6 +21,7 @@
         title: '关于 | 锋言疯语',
       }
     },
+    layout: 'twoColumns',
     mixins: [MarkedMixins]
   }
 </script>

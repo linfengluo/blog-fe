@@ -15,7 +15,7 @@ $lightGray                  : lighten($gray, 50%);
 $pageWidth                  : 960px;
 $pageSmallWidth             : 640px;
 $fontSizeBase               : 28px;
-$fontSizeLarge             : ceil(($fontSizeBase * 1.25)); // ~18px
+$fontSizeLarge              : ceil(($fontSizeBase * 1.25)); // ~18px
 $fontSizeSmall              : ceil(($fontSizeBase * 0.85)); // ~12px
 
 $fontSizeH1                 : floor(($fontSizeBase * 2.6)); // ~36px
@@ -96,4 +96,55 @@ $themes: (
     panigationActiveColor   : $white,
     panigationActiveBg      : $blue
   ),
+  two: (
+    indexBg                 : $blue,
+    bgColor                 : $widthGray,
+
+    maskBg                  : $maskBg,
+    innerBg                 : $white,
+    fontColor               : $gray,
+    prominentColor          : $blue,
+    tipsColor               : lighten($gray, 30%),
+    menuHover               : $yellow,
+    hoverColor              : $yellow,
+
+    toTopColor              : $gray,
+    toTopHoverColor         : $blue,
+
+    tagColor                : rgb(88, 178, 220),
+    borderColor             : $borderColor,
+    linkHoverColor          : $blue,
+
+    headerColor             : $white,
+
+    //导航栏颜色
+    navBorder               : $blue,
+    navBg                   : $white,
+    navColor                : $white,
+    navHoverBg              : $blue,
+    navHoverColor           : $blue,
+
+    //文章列表
+    iconColor               : $lightGray,
+    iconHoverColor          : $blue,
+    articleBorder           : $lightBlue,
+    articleHoverBorder      : $lightRed,
+
+    //按钮
+    buttonBg                : $white,
+    buttonColor             : $gray,
+    buttonHoverBg           : $blue,
+    buttonHoverColor        : $white,
+    buttonHoverBorder       : $blue,
+
+    footerBg                : $darkGray,
+    footerColor             : $lightGray,
+    dictBg                  : $white,
+    dictColor               : $white,
+
+    panigationHoverColor    : $white,
+    panigationHoverBg       : $lightBlue,
+    panigationActiveColor   : $white,
+    panigationActiveBg      : $blue
+  )
 );

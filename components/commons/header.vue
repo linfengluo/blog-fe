@@ -2,7 +2,7 @@
     Created by linfengluo@gmail.com on 2019/1/3.
 -->
 <template>
-  <header :class="['header', themeClass]">
+  <header class="header">
     <div class="header__inner">
       <h2 class="header__inner--title">疯 子</h2>
       <p class="header__inner--desc">安之若素，淡然若水</p>

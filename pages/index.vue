@@ -30,6 +30,7 @@ export default {
       }
     }
   },
+  layout: 'twoColumns',
   components: {
     ArticleItem,
     Pagination

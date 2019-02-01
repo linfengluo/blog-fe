@@ -21,6 +21,7 @@
         classifys: data
       }
     },
+    layout: 'twoColumns',
     head(){
       return {
         title: '分类 | 锋言疯语',

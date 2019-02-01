@@ -3,9 +3,7 @@
 -->
 <template>
   <section class="article" ref="article">
-    <div :class="['article__container', {
-      left: hasDirectory
-    }]">
+    <div class="article__container">
       <h3 class="article--title">
         {{ article.title }}
       </h3>
@@ -23,17 +21,14 @@
     }]">
       <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTMwNS81ODcz"></div>
     </div>
-    <Directory :directory="directory"
-               :offsetTop="offsetTop"
-               @transition="handleTranstion"
-    />
+
   </section>
 </template>
 
 <script>
   import DateMixin from '../../mixins/timeFormat'
   import Marked from '../../mixins/marked'
-  import Directory from '../../components/article/directory.vue'
+  import {SAVE_ARTICLE_DICTORY} from '../../units/mutationsType'
   export default {
     async asyncData({store, params }) {
       let data = await store.dispatch('getArticle', params.id)
@@ -41,6 +36,7 @@
         article: data
       }
     },
+    layout: 'twoColumns',
     head(){
       return {
         title: `${this.article.title} | 锋言疯语`,
@@ -53,11 +49,11 @@
       return {
         directory: [],
         offsetTop: 0,
-        hasDirectory: false
+        hasDirectory: false,
+        timmer: null,
       }
     },
     components: {
-      Directory
     },
     mixins: [DateMixin, Marked],
     mounted(){
@@ -92,6 +88,7 @@
               index: tagIndex,
               children: []
             })
+            this.commitDictory()
           } else {
             that.setDirectory(that.directory, tagIndex, item.id)
           }
@@ -116,7 +113,17 @@
         } else {
           this.setDirectory(source[target].children, index, id)
         }
+      },
+
+      commitDictory(){
+        clearTimeout(this.timmer)
+        this.timmer = setTimeout(() => {
+          this.$store.commit(SAVE_ARTICLE_DICTORY, this.directory)
+        }, 300)
       }
+    },
+    beforeDestory(){
+      this.$store.commit(SAVE_ARTICLE_DICTORY)
     }
   }
 </script>

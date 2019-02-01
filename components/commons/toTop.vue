@@ -14,11 +14,7 @@
   export default {
     methods: {
       backTop () {
-        var currentScroll = document.documentElement.scrollTop || document.body.scrollTop
-        if (currentScroll > 0) {
-          window.scrollTo (0, currentScroll - (currentScroll / 5));
-          window.requestAnimationFrame ? window.requestAnimationFrame(this.backTop) : this.backTop()
-        }
+        this.$emit('top')
       }
     },
     computed: {

@@ -19,5 +19,8 @@ export default {
   },
   [Types.CHANGE_SEARCH_STATE](state, isShow = false){
     state.isShowSearch = isShow
+  },
+  [Types.SAVE_ARTICLE_DICTORY](state, dictory = []){
+    state.articleDistory = JSON.parse(JSON.stringify(dictory))
   }
 }

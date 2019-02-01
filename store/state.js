@@ -3,7 +3,7 @@
  */
 export default () => ({
   isOpenMenu: false,
-  theme: 'default',
+  theme: 'two',
   isShowSearch: false,
   modalConfig: {
     zIndex: 5000,
@@ -13,5 +13,6 @@ export default () => ({
     scrollTop: 0,
     width: 0,
     height: 0
-  }
+  },
+  articleDistory: []
 })

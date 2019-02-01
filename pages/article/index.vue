@@ -45,6 +45,7 @@ export default {
       title: '归档 | 锋言疯语',
     }
   },
+  layout: 'twoColumns',
   components: {
     ArticleItem,
     NoneData,
